@@ -1,2 +1,3 @@
 /.venv
 /tasks_board.code-workspace
+/tasks_board/__pycache__
