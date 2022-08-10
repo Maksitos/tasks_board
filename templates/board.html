@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class='tasks'>
+<div id='New_tasks'>
+    <h2>New tasks</h2>
+    {% for task in object_list %}
+    {%if task.status == 1%}
+    <div class='task'>{{task.text}}</div>
+    {% endif %}
+    
+    {% endfor %}
+</div>
+<div id='In_progress'>
+    <h2>In progress</h2>
+    {% for task in object_list %}
+    {%if task.status == 2%}
+    <div class='task'>{{task.text}}</div>
+    <
+    {% endif %}
+    {% endfor %}
+</div>
+<div id='In_QA'>
+    <h2>In QA</h2>
+    {% for task in object_list %}
+    {%if task.status == 3%}
+    <div class='task'>{{task.text}}</div>
+    {% endif %}
+    {% endfor %}
+</div>
+<div id='Ready'>
+    <h2>Ready</h2>
+    {% for task in object_list %}
+    {%if task.status == 4%}
+    <div class='task'>{{task.text}}</div>
+    {% endif %}
+    {% endfor %}
+</div>
+<div id='Done'>
+    <h2>Done</h2>
+    {% for task in object_list %}
+    {%if task.status == 5%}
+    <div class='task'>{{task.text}}</div>
+    {% endif %}
+    {% endfor %}
+</div>
+</div>
+<style>
+    .tasks {
+        display: flex;
+        justify-content: space-around;
+        height: 90%;
+
+}
+    .tasks> div {
+        border: 1px solid;
+        width: 19%;
+    }
+    html, body {
+        height: 100%;
+    }
+    
+</style>
+{%endblock%}

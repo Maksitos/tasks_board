@@ -1,3 +1,7 @@
 /.venv
 /tasks_board.code-workspace
 /tasks_board/__pycache__
+tasks_board_app/__pycache__
+tasks_board_app/migrations/__pycache__
+
+.vscode

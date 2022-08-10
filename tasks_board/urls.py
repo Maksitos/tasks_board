@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from tasks_board_app.views import BoardPage, Registration, Logout, Login, TaskCreationPage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', BoardPage.as_view(), name='board_page'),
+    path('login', Login.as_view(), name='login'),
+    path('logout', Logout.as_view(), name='logout'),
+    path('registration', Registration.as_view(), name='register'),
+    path('add_task', TaskCreationPage.as_view(),name='add_task')
+
 ]
