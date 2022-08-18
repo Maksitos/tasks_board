@@ -15,7 +15,10 @@ class Task(models.Model):
     performer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='performerUser', blank=True)
     text = models.TextField(max_length=200)
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
-    timezone = models.TimeField(default=timezone.now)
+    time = models.DateTimeField()
+
+    def save(self, *args, **kwargs):
+        self.time = timezone.now()
+        super().save(*args, **kwargs)
 
 
-     

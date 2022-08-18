@@ -1,29 +1,114 @@
 {% extends 'index.html' %}
 {% block content %}
+<a href="{% url 'add_task'%}">Add Task</a>
+{% if messages %}
+{% for message in messages %}
+<p>{{ message }}</p>
+{% endfor %}
+{% endif %}
 <div class='tasks'>
 <div id='New_tasks'>
     <h2>New tasks</h2>
     {% for task in object_list %}
     {%if task.status == 1%}
-    <div class='task'>{{task.text}}</div>
+    <div class='task'>
+        <p>||{{task.text}}||
+        <p>||{{task.time}}||
+        <p>||{{task.performer}}||
+            {% if user == task.performer%}
+            <form method="post" action="{% url 'status_change' %}">
+                {% csrf_token %}
+                <input type="hidden" value="{{task.id}}" name="task_id">
+                <input type="hidden" value="1" name="changer">
+
+                <button type="submit">&#8594</button>
+            </form>
+            {% endif %}
+            {% if user.is_superuser or user == task.creator%}
+            <a href="{% url 'update' task.pk %}">Edit</a>
+            {% endif %}
+            {% if user.is_superuser%}
+            <form method="post" action="{% url 'delete' task.pk %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+            {% endif %}
+    </div>
     {% endif %}
-    
     {% endfor %}
 </div>
 <div id='In_progress'>
     <h2>In progress</h2>
     {% for task in object_list %}
     {%if task.status == 2%}
-    <div class='task'>{{task.text}}</div>
-    <
+    <div class='task'>
+        <p>||{{task.text}}||
+        <p>||{{task.time}}||
+        <p>||{{task.performer}}||
+        {% if user == task.performer%}
+        <form method="post" action="{% url 'status_change' %}">
+            {% csrf_token %}
+            <input type="hidden" value="{{task.id}}" name="task_id">
+            <input type="hidden" value="-1" name="changer">
+            <button type="submit">&#8592</button>
+        </form>
+        {% endif %}
+        {% if user == task.performer%}
+        <form method="post" action="{% url 'status_change' %}">
+            {% csrf_token %}
+            <input type="hidden" value="{{task.id}}" name="task_id">
+            <input type="hidden" value="1" name="changer">
+            <button type="submit">&#8594</button>
+        </form>
+        {% endif %}
+        {% if user.is_superuser or user == task.creator%}
+            <a href="{% url 'update' task.pk %}">Edit</a>
+            {% endif %}
+            {% if user.is_superuser%}
+            <form method="post" action="{% url 'delete' task.pk %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+            {% endif %}
+    </div>
     {% endif %}
+    
     {% endfor %}
 </div>
 <div id='In_QA'>
     <h2>In QA</h2>
     {% for task in object_list %}
     {%if task.status == 3%}
-    <div class='task'>{{task.text}}</div>
+    <div class='task'>
+        <p>||{{task.text}}||
+        <p>||{{task.time}}||
+        <p>||{{task.performer}}||
+        {% if user == task.performer%}
+        <form method="post" action="{% url 'status_change' %}">
+            {% csrf_token %}
+            <input type="hidden" value="{{task.id}}" name="task_id">
+            <input type="hidden" value="-1" name="changer">
+            <button type="submit">&#8592</button>
+        </form>
+        {% endif %}
+        {% if user == task.performer%}
+        <form method="post" action="{% url 'status_change' %}">
+            {% csrf_token %}
+            <input type="hidden" value="{{task.id}}" name="task_id">
+            <input type="hidden" value="1" name="changer">
+            <button type="submit">&#8594</button>
+        </form>
+        {% endif %}
+        {% if user.is_superuser or user == task.creator%}
+            <a href="{% url 'update' task.pk %}">Edit</a>
+            {% endif %}
+            {% if user.is_superuser%}
+            <form method="post" action="{% url 'delete' task.pk %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+            {% endif %}
+    </div>
     {% endif %}
     {% endfor %}
 </div>
@@ -31,7 +116,37 @@
     <h2>Ready</h2>
     {% for task in object_list %}
     {%if task.status == 4%}
-    <div class='task'>{{task.text}}</div>
+    <div class='task'>
+        <p>||{{task.text}}||
+        <p>||{{task.time}}||
+        <p>||{{task.performer}}||
+    
+        {% if user == task.performer%}
+        <form method="post" action="{% url 'status_change' %}">
+            {% csrf_token %}
+            <input type="hidden" value="{{task.id}}" name="task_id">
+            <input type="hidden" value="-1" name="changer">
+            <button type="submit">&#8592
+            </button>
+        </form>
+        {% endif %}
+        {% if user.is_superuser%}
+        <form method="post" action="{% url 'status_change' %}">
+            {% csrf_token %}
+            <input type="hidden" value="{{task.id}}" name="task_id">
+            <input type="hidden" value="1" name="changer">
+            <button type="submit">&#8594</button>
+        </form>
+        {% endif %}
+        {% if user.is_superuser or user == task.creator%}
+        <a href="{% url 'update' task.pk %}">Edit</a>
+        {% endif %}
+        {% if user.is_superuser%}
+        <form method="post" action="{% url 'delete' task.pk %}">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
+        {% endif %}    </div>
     {% endif %}
     {% endfor %}
 </div>
@@ -39,7 +154,28 @@
     <h2>Done</h2>
     {% for task in object_list %}
     {%if task.status == 5%}
-    <div class='task'>{{task.text}}</div>
+    <div class='task'>
+        <p>||{{task.text}}||
+        <p>||{{task.time}}||
+        <p>||{{task.performer}}||
+        {% if user.is_superuser%}
+        <form method="post" action="{% url 'status_change' %}">
+            {% csrf_token %}
+            <input type="hidden" value="{{task.id}}" name="task_id">
+            <input type="hidden" value="-1" name="changer">
+            <button type="submit">&#8592</button>
+        </form>
+        {% endif %}
+        {% if user.is_superuser or user == task.creator%}
+        <a href="{% url 'update' task.pk %}">Edit</a>
+        {% endif %}
+        {% if user.is_superuser%}
+        <form method="post" action="{% url 'delete' task.pk %}">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
+        {% endif %}
+    </div>
     {% endif %}
     {% endfor %}
 </div>
@@ -48,16 +184,16 @@
     .tasks {
         display: flex;
         justify-content: space-around;
-        height: 90%;
 
 }
     .tasks> div {
         border: 1px solid;
         width: 19%;
     }
-    html, body {
-        height: 100%;
-    }
-    
+    .tasks> div > .task {
+        display: flex;
+        border: 1px solid;
+        flex-wrap: wrap;
+    } 
 </style>
 {%endblock%}

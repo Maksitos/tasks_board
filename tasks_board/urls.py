@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from tasks_board_app.views import BoardPage, Registration, Logout, Login, TaskCreationPage
+from tasks_board_app.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +23,11 @@ urlpatterns = [
     path('login', Login.as_view(), name='login'),
     path('logout', Logout.as_view(), name='logout'),
     path('registration', Registration.as_view(), name='register'),
-    path('add_task', TaskCreationPage.as_view(),name='add_task')
+    path('add_task', TaskCreationPage.as_view(),name='add_task'),
+    path('status_change', StatusChangeView.as_view(), name='status_change'),
+    path('<pk>/update', UpdateTask.as_view(), name='update'),
+    path('<pk>/delete', DeleteTask.as_view(), name='delete'),
+
+
 
 ]
