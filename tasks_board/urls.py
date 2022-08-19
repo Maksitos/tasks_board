@@ -18,9 +18,11 @@ from django.urls import path, include
 from tasks_board_app.API.resources import TaskViewSet, UserViewSet
 from tasks_board_app.views import *
 from rest_framework import routers
+from rest_framework.authtoken import views
 
 router = routers.SimpleRouter()
 router.register('users', UserViewSet)
+router.register('tasks', TaskViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,9 +34,8 @@ urlpatterns = [
     path('status_change', StatusChangeView.as_view(), name='status_change'),
     path('<pk>/update', UpdateTask.as_view(), name='update'),
     path('<pk>/delete', DeleteTask.as_view(), name='delete'),
-    path('api/<status>/tasks', TaskViewSet.as_view({'get': 'list'}), name='tasks'),
-    path('api/tasks/<pk>', TaskViewSet.as_view({'get': 'retrieve'})),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    path('api-token-auth/', views.obtain_auth_token)
 
 
 

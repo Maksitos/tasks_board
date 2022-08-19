@@ -16,10 +16,23 @@ class TaskReadSerializer(serializers.ModelSerializer):
 class TaskWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model= Task
-        fields = ['creator', 'performer', 'text']
+        fields = ['performer', 'text']
+
+
+class TaskCreatorUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Task
+        fields = ['text']
+
+
+class TaskAdminUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Task
+        fields = ['performer', 'text']
+
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = 'username'
