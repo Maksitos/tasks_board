@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from tasks_board_app.API.resources import TaskViewSet, UserViewSet
 from tasks_board_app.views import *
+from tasks_board_app.consumers import InfoConsumer
 from rest_framework import routers
 from rest_framework.authtoken import views
 
@@ -35,7 +36,7 @@ urlpatterns = [
     path('<pk>/update', UpdateTask.as_view(), name='update'),
     path('<pk>/delete', DeleteTask.as_view(), name='delete'),
     path('api/', include(router.urls)),
-    path('api-token-auth/', views.obtain_auth_token)
+    path('api-token-auth/', views.obtain_auth_token),
 
 
 

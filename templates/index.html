@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
+    <div id='socket-info'></div>
 <div class="header-bar">
     {% if user.is_authenticated %}
     <a href='{% url "board_page"%}'>Main</a>
@@ -15,5 +16,23 @@
 {% block content %}
     {% endblock %}
         <div></div>
+    <div id='socket-info'>{{ text }}</div>
+        <script>
+        
+            const chatSocket = new WebSocket(
+                    'ws://localhost:8000/ws/info/');
+        
+            chatSocket.onmessage = function (e) {
+                const data = JSON.parse(e.data);
+                console.log(data)
+                document.querySelector('#socket-info').innerText = data.value;
+            };
+            
+            chatSocket.onclose = function (e) {
+                console.error('Chat socket closed unexpectedly');
+            };
+        
+        </script>
+
 </body>
 </html>
