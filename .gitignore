@@ -5,3 +5,5 @@ tasks_board_app/__pycache__
 tasks_board_app/migrations/__pycache__
 
 .vscode
+tasks_board_app/API/__pycache__/resources.cpython-310.pyc
+tasks_board_app/API/__pycache__/serializers.cpython-310.pyc
