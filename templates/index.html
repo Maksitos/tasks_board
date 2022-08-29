@@ -19,16 +19,16 @@
     <div id='socket-info'>{{ text }}</div>
         <script>
         
-            const chatSocket = new WebSocket(
+            const infoSocket = new WebSocket(
                     'ws://localhost:8000/ws/info/');
         
-            chatSocket.onmessage = function (e) {
+            infoSocket.onmessage = function (e) {
                 const data = JSON.parse(e.data);
                 console.log(data)
-                document.querySelector('#socket-info').innerText = data.value;
+                document.querySelector('#socket-info').innerText = ('Now is Ready ' +data.value + ' tasks');
             };
             
-            chatSocket.onclose = function (e) {
+            infoSocket.onclose = function (e) {
                 console.error('Chat socket closed unexpectedly');
             };
         
